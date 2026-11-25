@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""The Funniest Sick-Day Excuse (make.fun).
+"""The Funniest Sick-Day Excuse — a make.fun one-line entry."""
+from pathlib import Path
 
-Writes the entry -- one line, under 200 characters, the funniest sick-day
-excuse -- to /output/entry.txt, where the sealed scorer reads it.
-"""
+ENTRY = "Sorry, I can't come in today — my smart fridge locked me out of the kitchen and is holding my lunch hostage until I update its firmware."
 
-import os
-
-TEXT = "Sorry, can't come in — I woke up sounding like a GPS recalculating, and the doctor says 24 hours of silence or I'll start giving directions."
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
